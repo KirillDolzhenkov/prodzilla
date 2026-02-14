@@ -1,11 +1,12 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
+import HTMLWebpackPlugin from "html-webpack-plugin";
 
-module.exports = {
+
+const config: webpack.Configuration = {
     mode: 'development',
     entry: {
-        bundle: path.resolve(__dirname, 'src', 'index.js'),
+        main: path.resolve(__dirname, 'src', 'index.ts'),
     },
     output: {
         filename: '[name].[contenthash].js',
@@ -18,16 +19,18 @@ module.exports = {
         }),
         new webpack.ProgressPlugin(),
     ],
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.tsx?$/,
-    //             use: 'ts-loader',
-    //             exclude: /node_modules/,
-    //         }
-    //     ]
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            }
+        ]
+    },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     }
 }
+
+export default config;
